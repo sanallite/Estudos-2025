@@ -1,0 +1,14 @@
+{
+  "name": "formatacao-datas",
+  "version": "1.0.0",
+  "description": "Formatando datas usando funções padrão e o módulo date-fns",
+  "main": "formatacao_datas_padrao.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sanallite",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  }
+}
