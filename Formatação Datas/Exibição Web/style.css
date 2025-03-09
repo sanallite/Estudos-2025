@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: monospace;
+    font-size: large;
+    background-color: color-mix(in srgb, blue 10%, black 100%);
+    color: white;
+}
+
+div {
+    margin: 1rem;
+}
