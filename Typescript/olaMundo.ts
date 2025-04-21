@@ -124,3 +124,60 @@ let cli: Cliente = {
     id: 1
 }
 /* cli.id = 2; Erro. Propriedade de somente leitura. */
+
+function greet(): void {
+    console.log('oh hi');
+}
+const gura = (): string => {
+    return 'A';
+}
+const verificaPar = (n: number): boolean => n%2 === 0;
+console.log(verificaPar(1));
+/* Usando funções, com aquelas que não retornam um valor tendo que ser do tipo void, ou undefined */
+
+let funcao: Function;
+/* Anotação do tipo função, essa variável pode receber qualquer função com quaisquer tipos de parâmetros e qualquer tipo retorno */
+
+let funcaoAssinada: (parametro: string, outro: boolean) => void;
+/* Assinatura de função, que define que essa variável só pode ser atribuída a uma função com essa estrutura: dois parâmetros, daqueles tipos e que pode ou não retornar algo. com void signficando "retorno ignorado", não "sem retorno". */
+
+funcaoAssinada = (p: string): number => {
+    return 12;
+}
+/* funcaoAssinada('Erro: dois argumentos esperados, apenas um obtido.'); */
+
+let outroRetorno: () => string;
+/* outroRetorno = () => {} Erro do tipo de retorno. */
+
+let voidRetorno: () => void;
+voidRetorno = ():string => {
+    console.log('A');
+    return 'Uma função que não tem os tipos void, undefined ou any deve retornar um valor.'
+}
+
+type Callback = (param: string | number) => void;
+/* Definindo uma assinatura de função como tipo, o que é útil para funções de callback. */
+
+let funComCallback = ( p1: string, call: Callback ) => { }
+/* A função recebida por parâmetro tem que estar de acordo com a estrutura definida no tipo, nesse caso receber um parâmetro de string ou número e com o retorno sendo ignorado. */
+
+funComCallback('Parâmetro 1', dadosRetorno => {
+    console.log(dadosRetorno);
+})
+/* Se a função de callback for simples, também pode ser escrita em linha, dentro do parâmetro, usando a síntaxe de função de seta. */
+
+let ops = function(algo?: any): void {
+    console.log(algo);
+}
+/* Parâmetros opicionais, para que a função possa ser chamada mesmo sem um valor para eles. */
+
+function taxar(preco: number, taxa: number = 0.50): number {
+    return preco + preco * taxa;
+}
+console.log(taxar(199));
+/* Função com parâmetros com valores padrão, caso a função seja chamada sem informá-lo. Uma função também pode ter parâmetros opcionais e outros com valor padrão ao meso tempo */
+
+const calcularArea = (largura: number, altura: number = largura): void => {
+    console.log(largura * altura);
+}
+/* Usando o valor de um parâmetro como o valor padrão de outro. */
