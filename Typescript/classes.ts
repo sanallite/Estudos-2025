@@ -1,4 +1,4 @@
-/* Estudando classes em TypeScript, no arquivo .js compilado é possível ver as definições feitas a moda antiga, com as funções construtoras e os métodos sendo definidos na propriedade prototype. */
+/* Estudando classes em TypeScript, no arquivo .js compilado é possível ver as definições feitas a moda antiga, com as funções construtoras e os métodos sendo definidos na propriedade prototype, que é a forma como as classes são criadas internamente pelo Javascript. */
 
 class Escola {
     nome: string
@@ -49,3 +49,48 @@ const miyu = new Cliente('Miyu', 444, 'Rua das Flores');
 /* miyu.endereco Erro, propriedade somente acessível em sua classe ou nas subclasses dela. */
 
 console.log(miyu.comprar());
+
+abstract class Pessoa {
+    constructor(public nome: string, public idade: number) {
+        this.nome = nome,
+        this.idade = idade
+    }
+    /* Ao usar modificadores de acesso nos parâmetros as propriedades são definidas e inicializadas no construtor. */
+
+    abstract falar(mensagem: string): string;
+    /* Métodos abstratos não podem ter uma implementação, apenas a estrutura. */
+
+    anoNascimento() {
+        let hoje = new Date();
+        let ano = hoje.getFullYear();
+
+        return ano - this.idade;
+        /* No caso essa função dá o resultado incorreto se você ainda não fez aniverśario esse ano. Uma implentação completa precisaria verificar o mês de nascimento, que estaria numa pripriedade da classe. */
+    }
+    /* Classes abstratas também podem conter métodos não abstratos, que podem ser chamados diretamente. */
+}
+/* const eu = new Pessoa(); Erro: Não é possível criar uma instância de uma classe abstrata. */
+
+class Eu extends Pessoa {
+    destaque: boolean
+
+    constructor(nome: string, idade: number) {
+        super(nome, idade);
+        /* Usando o construtor da superclasse (Pessoa), com o construtor da subclasse (Eu) devendo receber os parâmetros necessários. */
+        this.destaque = true;
+    }
+
+    falar(mensagem: string) {
+        return mensagem;
+    }
+    /* Uma classe que herda de uma classe abstrata necessita ter uma implementação do membro abstrato herdado, nesse caso o método falar. */
+
+    /* falar(): string {
+        return 'a'; É necessário ter a concordância de tipos no retorno do método ou nos parâmetros.
+    } */
+}
+
+const marcio = new Eu('Márcio', 25);
+console.log(marcio.falar('Feliz aniversário Liz!'));
+console.log(marcio.anoNascimento());
+console.log(marcio);
