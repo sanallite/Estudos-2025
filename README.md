@@ -12,3 +12,4 @@ Também aprendendo a programar em Typescript.
 ### TypeScript:
 * Anotação de tipo, aliases de tipo e interfaces.
 * Assinatura de funções, classes normais e abstratas.
+* Introdução a enumeradores.
