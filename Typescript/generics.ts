@@ -5,13 +5,13 @@ const numArr: number[] = [1, 2, 4, 19];
 
 function reduzir<T> (array: T[]): T {
     /* Não é preciso definir tipos na função reduce, ela recebe o tipo do array recebido pelo parâmetro. */
-    return array.reduce((anterior, atual) => 
-        atual > anterior ? atual : anterior
+    return array.reduce((anteriores, atual) => 
+        atual > anteriores ? atual : anteriores
         /* Operadores ternários */
     )
 }
 let resultado = reduzir<string>(arrString);
-/* Após declarar o tipp genérico na função, podemos chamá-la com qualquer tipo */
+/* Após declarar o tipo genérico na função, podemos chamá-la com qualquer tipo */
 let outroResultado: number = reduzir(numArr);
 /* Aqui foram feitas inferências de tipo, nas variáveis e no tipo genérico. */
 
@@ -31,6 +31,7 @@ let quatroCinco = new Generica<number>(45);
 /* quatroCinco = 45; Erro. Depois de atribuirmos uma instância da classe com um tipo específico, não podemos atribuir um valor de outro tipo na variável. */
 
 let quatroSeis = new Generica<string>('46');
+
 let dezenas = new Generica({ um: 10, dois: 20 });
 /* Definindo o tipo por inferência, que como é um objeto, o tipo deve ser um objeto com essas duas propriedades com valores do tipo number. */
 
@@ -42,3 +43,45 @@ centenas = new Generica({ duzentos: 200 });
 /* Sem erro, o tipo da classe precisa ser um objeto, mas sem propriedades específicas. */
 
 centenas = new Generica([]);
+/* É possível criar uma instância com um array, devido o array ser um objeto, através da herança de protótipos, então é um subtipo de object. Isso não seria possível na variável dezenas, pois o tipo dela é um objeto que contém propriedades específicas. */
+
+console.log(centenas);
+
+/* Exemplo do Mimo de um uso de tipos genéricos */
+const repetir = <T> (item: T, contador: number): T[] => {
+    const resultado: T[] = [];
+
+    for ( let i = 0; i < contador; i++ ) {
+        resultado.push(item)
+    }
+
+    return resultado;
+}
+
+const exibirPiramide = (altura: number): void => {
+    for ( let i = 0; i < altura; i++ ) {
+        const espacos = repetir(' ', altura - i - 1).join('');
+        const estrelas = repetir(8, 2 * i + 1).join('');
+        /* Chamando a função com tipos diferentes. */
+
+        console.log(espacos, estrelas);
+    }
+}
+
+exibirPiramide(10);
+
+const letras: Array<string> = ['a', 'b', 'c'];
+/* Outra forma de criar arrays. */
+
+interface objetoString<T> {
+    conteudo: T
+}
+const casa: objetoString<string> = {
+    conteudo: 'móveis'
+}
+/* Também é possível usar tipos genéricos em interfaces. */
+
+function combinar<T, A>() { }
+/* Também é possível usar mais de um tipo genérico. */
+
+/* A utilização de tipos genéricos é um tópico amplo, que também utiliza as outras funcionalidades do TypeScript, preciso continuar aprendendo mais sobre isso ao longo do tempo. */
